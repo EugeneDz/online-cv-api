@@ -2,9 +2,17 @@
   "name": "online-cv-backend",
   "version": "1.0.0",
   "description": "Online CV for developers",
-  "main": "index.js",
+  "main": "app/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier-standard",
+      "eslint app/ --fix --ignore-pattern *.test.js",
+      "git add"
+    ]
   },
   "author": "Eugene Dzhevadov",
   "license": "MIT",
@@ -19,6 +27,12 @@
     "validator": "10.9.0"
   },
   "devDependencies": {
-    "nodemon": "1.18.6"
+    "eslint": "5.9.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.14.0",
+    "husky": "1.2.0",
+    "lint-staged": "8.1.0",
+    "nodemon": "1.18.6",
+    "prettier-standard": "8.0.1"
   }
 }

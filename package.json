@@ -4,7 +4,11 @@
   "description": "Online CV for developers",
   "main": "app/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "./node_modules/babel-cli/bin/babel.js -d ./build ./app -s",
+    "build": "npm run clean && npm run build-babel",
+    "start": "npm run build && node ./build/index.js",
+    "start:dev": "nodemon --exec babel-node app/index.js",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -27,6 +31,7 @@
     "validator": "10.9.0"
   },
   "devDependencies": {
+    "babel-cli": "6.26.0",
     "eslint": "5.9.0",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-import": "2.14.0",

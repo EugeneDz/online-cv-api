@@ -3,6 +3,8 @@ const passport = require('passport');
 
 const Profile = require('../../models/Profile');
 
+const validateProfileInput = require('../../validation/profile');
+
 const router = express.Router();
 
 // @route   GET api/profile/test
@@ -15,8 +17,12 @@ router.get('/test', (req, res) => res.json({ msg: 'Profile works' }));
 // @access  Private
 router.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
   try {
-    const errors = {};
-    const profile = await Profile.findOne({ user: req.user.id });
+    const { errors } = validateProfileInput(req.body);
+    const profile = await Profile.findOne({ user: req.user.id }).populate('user', [
+      'name',
+      'avatar',
+    ]);
+
     if (!profile) {
       errors.noprofile = 'There is no profile for this user';
 
@@ -34,7 +40,9 @@ router.get('/', passport.authenticate('jwt', { session: false }), async (req, re
 // @access  Private
 router.post('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
   try {
-    const errors = {};
+    const { errors, isValid } = validateProfileInput(req.body);
+    if (!isValid) return res.status(400).json(errors);
+
     const profileFields = {};
     profileFields.user = req.user.id;
 
@@ -56,10 +64,10 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
 
     // Social
     profileFields.social = {};
-    if (req.body.youtube) profileFields.skills.youtube = req.body.youtube;
-    if (req.body.twitter) profileFields.skills.twitter = req.body.twitter;
-    if (req.body.facebook) profileFields.skills.facebook = req.body.facebook;
-    if (req.body.linkedin) profileFields.skills.linkedin = req.body.linkedin;
+    if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
+    if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
+    if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
+    if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
 
     const profile = await Profile.findOne({ user: req.user.id });
     if (profile) {

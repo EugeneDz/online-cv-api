@@ -8,7 +8,7 @@
     "build-babel": "./node_modules/babel-cli/bin/babel.js -d ./build ./app -s",
     "build": "npm run clean && npm run build-babel",
     "start": "npm run build && node ./build/index.js",
-    "start:dev": "nodemon --exec babel-node app/index.js",
+    "start:dev": "npm run build && nodemon ./build/index.js",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
+    "babel-preset-env": "1.7.0",
     "eslint": "5.9.0",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-import": "2.14.0",

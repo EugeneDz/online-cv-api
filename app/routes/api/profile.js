@@ -25,8 +25,70 @@ router.get('/', passport.authenticate('jwt', { session: false }), async (req, re
 
     if (!profile) {
       errors.noprofile = 'There is no profile for this user';
-
       return res.status(404).json(errors);
+    }
+
+    return res.json(profile);
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
+// @route   GET api/profile/user/:user_id
+// @desc    Get profile by user ID
+// @access  Public
+router.get('/user/:user_id', async (req, res) => {
+  try {
+    const errors = {};
+    const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', [
+      'name',
+      'avatar',
+    ]);
+
+    if (!profile) {
+      errors.profile = 'There is no profile for this user';
+      return res.status(404).send(errors);
+    }
+
+    return res.json(profile);
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
+// @route   GET api/profile/all
+// @desc    Get all profiles
+// @access  Public
+router.get('/all', async (req, res) => {
+  try {
+    const errors = {};
+    const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+
+    if (!profiles) {
+      errors.profile = 'There is no profiles';
+      return res.status(404).send(errors);
+    }
+
+    return res.json(profiles);
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
+// @route   GET api/profile/handle/:handle
+// @desc    Get profile by handle
+// @access  Public
+router.get('/handle/:handle', async (req, res) => {
+  try {
+    const errors = {};
+    const profile = await Profile.findOne({ handle: req.params.handle }).populate('user', [
+      'name',
+      'avatar',
+    ]);
+
+    if (!profile) {
+      errors.profile = 'There is no profile for this user';
+      return res.status(404).send(errors);
     }
 
     return res.json(profile);

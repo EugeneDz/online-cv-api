@@ -38,7 +38,7 @@ const ProfileSchema = new Schema({
   stackoverflowusername: {
     type: String,
   },
-  experiance: [
+  experience: [
     {
       title: {
         type: String,
@@ -70,10 +70,6 @@ const ProfileSchema = new Schema({
   education: [
     {
       school: {
-        type: String,
-        required: true,
-      },
-      degree: {
         type: String,
         required: true,
       },

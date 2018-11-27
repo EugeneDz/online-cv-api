@@ -11,6 +11,19 @@
 			"item": [
 				{
 					"name": "User - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9ae6e997-5b3b-4e62-b729-7753ae84de5f",
+								"type": "text/javascript",
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.environment.set('token', data.token);"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -37,12 +50,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/login",
-							"protocol": "http",
+							"raw": "{{url}}/api/users/login",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"users",
@@ -59,17 +70,15 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViZjllNDNlMTg1Nzg0NWZjOGVlNTI0OSIsIm5hbWUiOiJFdWdlbmUgRHpoZXZhZG92IiwiYXZhdGFyIjoiLy93d3cuZ3JhdmF0YXIuY29tL2F2YXRhci8wOTkzOGQ4YzMwY2RjMTU3MTgwNWQ3Y2YzOTU2MWY0NT9zPTIwMCZyPXBnJmQ9bW0iLCJpYXQiOjE1NDMxMzc4MDQsImV4cCI6MTU0MzE0MTQwNH0.KIlNNgXNBA8ERce04nwD_I2ALk37QITDGC99AcSASF0"
+								"value": "{{token}}"
 							}
 						],
 						"body": {},
 						"url": {
-							"raw": "http://localhost:5000/api/users/current",
-							"protocol": "http",
+							"raw": "{{url}}/api/users/current",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"users",
@@ -109,16 +118,20 @@
 									"value": "qwerty123",
 									"description": "",
 									"type": "text"
+								},
+								{
+									"key": "password2",
+									"value": "qwerty123",
+									"description": "",
+									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/register",
-							"protocol": "http",
+							"raw": "{{url}}/api/users/register",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"users",
@@ -169,12 +182,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/register",
-							"protocol": "http",
+							"raw": "{{url}}/api/users/register",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"users",
@@ -212,16 +223,376 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/login",
-							"protocol": "http",
+							"raw": "{{url}}/api/users/login",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"users",
 								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"description": "",
+			"item": [
+				{
+					"name": "Profile - Current",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile - Create/Edit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "handle",
+									"value": "eugene_dzhevadov",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "Developer",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "skills",
+									"value": "HTML,CSS,JavaScript,PHP",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "Eleken",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "website",
+									"value": "https://company.com",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "twitter",
+									"value": "https://twitter.com/E_Dzhevadov",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile - By Handler",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/profile/handle/eugene_dzhevadov",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"handle",
+								"eugene_dzhevadov"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile - By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/profile/user/5bfa8a7914e7087871e6f4c6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"user",
+								"5bfa8a7914e7087871e6f4c6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile - All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/profile/all",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile - Experience",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Senior Developer",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "Eleken",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "from",
+									"value": "2016-03-03",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "to",
+									"value": "2019-03-03",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Building apps using reactjs and nodejs",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/profile/experience",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"experience"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile - Education",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "school",
+									"value": "Solomon University p",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "fieldofstudy",
+									"value": "Computer Science",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "from",
+									"value": "2008-09-01",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "to",
+									"value": "2011-05-01",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Computer Science Program",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/profile/education",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"education"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile - Delete Experience",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/profile/experience/5bfc32882405a38734460fdc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"experience",
+								"5bfc32882405a38734460fdc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile - Delete Education",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/profile/education/5bfc3b7cabfc1f88caf47dea",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"education",
+								"5bfc3b7cabfc1f88caf47dea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile & User - Delete ",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile"
 							]
 						}
 					},

@@ -599,6 +599,239 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Posts",
+			"description": "",
+			"item": [
+				{
+					"name": "Post - Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "text",
+									"value": "Lorem ipsum dolor sit amet",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/posts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Posts - Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/posts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post - Get By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/posts/5bfee5ec0e6626ac7bb704d6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"5bfee5ec0e6626ac7bb704d6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post - Delete By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/posts/5bfee8a4a37532acb9f9d734",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"5bfee8a4a37532acb9f9d734"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post - Like Post ",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/posts/like/5bfee5ec0e6626ac7bb704d6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"like",
+								"5bfee5ec0e6626ac7bb704d6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post - Unlike Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/posts/unlike/5bfee5ec0e6626ac7bb704d6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"unlike",
+								"5bfee5ec0e6626ac7bb704d6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post - Add Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "text",
+									"value": "The best comment ever",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Eugene Dzhevadov",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/posts/comment/5bfee5ec0e6626ac7bb704d6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"comment",
+								"5bfee5ec0e6626ac7bb704d6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post - Delete Comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/posts/comment/5bfee5ec0e6626ac7bb704d6/5c002887924ad1b58adbfe17",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"comment",
+								"5bfee5ec0e6626ac7bb704d6",
+								"5c002887924ad1b58adbfe17"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

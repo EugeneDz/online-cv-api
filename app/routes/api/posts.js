@@ -111,11 +111,6 @@ router.post(
     const errors = {};
 
     const post = await Post.findById(req.params.post_id);
-    // if (post.user.toString() !== req.user.id) {
-    //   errors.profile = 'User not authorized';
-    //   return res.status(401).send(errors);
-    // }
-
     const hasLiked = post.likes.filter(like => like.user.toString() === req.user.id).length;
     if (hasLiked === 0) {
       errors.likes = 'Yo have not yet liked  this post';
@@ -127,6 +122,64 @@ router.post(
 
     const savedPost = await post.save();
     return res.json(savedPost);
+  },
+);
+
+// @route   POST api/posts/comment/:post_id
+// @desc    Add comment to post
+// @access  Private
+router.post(
+  '/comment/:post_id',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    try {
+      const { errors, isValid } = validatePostInput(req.body);
+      if (!isValid) return res.status(400).json(errors);
+
+      const post = await Post.findById(req.params.post_id);
+      const comment = {
+        text: req.body.text,
+        name: req.body.name,
+        avatar: req.body.avatar,
+        user: req.user.id,
+      };
+
+      post.comments.unshift(comment);
+      const savedPost = await post.save();
+      return res.json(savedPost);
+    } catch (err) {
+      return res.status(404).send(err);
+    }
+  },
+);
+
+// @route   DELETE api/posts/comment/:post_id/:comment_id
+// @desc    Remove comment from a post
+// @access  Private
+router.delete(
+  '/comment/:post_id/:comment_id',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    try {
+      const errors = {};
+      const post = await Post.findById(req.params.post_id);
+
+      const commentIndex = post.comments.findIndex(
+        // eslint-disable-next-line no-underscore-dangle
+        item => item._id.toString() === req.params.comment_id,
+      );
+
+      if (commentIndex === -1) {
+        errors.likes = 'Comment does not exist';
+        return res.status(400).send(errors);
+      }
+
+      post.comments.splice(commentIndex, 1);
+      const savedPost = await post.save();
+      return res.json(savedPost);
+    } catch (err) {
+      return res.status(404).send(err);
+    }
   },
 );
 

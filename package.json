@@ -1,5 +1,5 @@
 {
-  "name": "online-cv-backend",
+  "name": "online-cv-api",
   "version": "1.0.0",
   "description": "Online CV for developers",
   "main": "app/index.js",

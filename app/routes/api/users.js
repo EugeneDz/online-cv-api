@@ -89,7 +89,7 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    errors.email = 'Password incorrect';
+    errors.password = 'Password incorrect';
     return res.status(400).json(errors);
   } catch (err) {
     return res.status(500).send(err);

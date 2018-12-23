@@ -33,7 +33,7 @@ mongoose
 require('./config/passport')(passport);
 
 // Routes
-app.get('/', (req, res) => res.send('Hello'));
+app.get('/', (req, res) => res.send('Online CV Rest API'));
 app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/posts', posts);
